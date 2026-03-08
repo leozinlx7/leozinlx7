@@ -2,6 +2,7 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Área Secreta</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
@@ -19,8 +20,6 @@ background: radial-gradient(circle at center,#001f4d,#000814,#000000);
 color:white;
 overflow:hidden;
 }
-
-/* VIA LÁCTEA */
 
 .milkyway{
 position:fixed;
@@ -40,8 +39,6 @@ animation:moveGalaxy 120s linear infinite;
 100%{transform:rotate(-25deg) translateX(200px)}
 }
 
-/* ESTRELAS */
-
 .star{
 position:fixed;
 width:2px;
@@ -57,8 +54,6 @@ z-index:0;
 0%{opacity:0.2;transform:scale(1)}
 100%{opacity:1;transform:scale(1.8)}
 }
-
-/* ESTRELA CADENTE */
 
 .shootingStar{
 position:fixed;
@@ -83,8 +78,6 @@ transform:translate(120vw,120vh) rotate(45deg);
 opacity:0;
 }
 }
-
-/* LOGIN */
 
 .login{
 background:#111;
@@ -116,16 +109,12 @@ color:white;
 cursor:pointer;
 }
 
-/* CHARADA */
-
 .riddle{
 font-size:14px;
 opacity:0.85;
 margin-top:10px;
 line-height:1.5;
 }
-
-/* SURPRESA */
 
 .surpresa{
 display:none;
@@ -146,9 +135,9 @@ font-size:28px;
 max-width:750px;
 line-height:1.6;
 padding:20px;
+max-height:60vh;
+overflow-y:auto;
 }
-
-/* FRASE FINAL */
 
 .final{
 font-size:36px;
@@ -164,8 +153,6 @@ opacity:1;
 transform:scale(1.1);
 }
 
-/* RESPONSIVO CELULAR */
-
 @media (max-width:600px){
 
 #texto{
@@ -177,8 +164,6 @@ font-size:24px;
 }
 
 }
-
-/* CORAÇÕES */
 
 .heart{
 position:fixed;
@@ -193,8 +178,6 @@ z-index:1;
 0%{transform:translateY(-20px)}
 100%{transform:translateY(110vh)}
 }
-
-/* PARTÍCULAS */
 
 .particle{
 position:absolute;
@@ -227,10 +210,8 @@ z-index:0;
 
 <div class="riddle">
 🎸 Charada:<br>
-Sou uma música do Guns N' Roses.<br>
-Tenho chuva no nome<br>
-e um dos solos de guitarra mais lendários da história.<br>
-Quem sou eu?
+Um herói 🕸️ aprendeu aprendeu a maior lição da sua vida.<br>
+sera q vc acerta??
 </div>
 
 <input id="pass" type="password" placeholder="Senha">
@@ -239,7 +220,6 @@ Quem sou eu?
 
 </div>
 
-
 <div class="surpresa" id="surpresa">
 
 <div id="texto"></div>
@@ -247,7 +227,7 @@ Quem sou eu?
 <div class="final" id="final">
 dizem que perfeição não existe...<br><br>
 mas acho que ainda não te conheceram.<br>
-te adoroo, Paloma 🎸❤️
+te adoroo, Ana ❤️
 </div>
 
 <audio id="musica">
@@ -260,28 +240,48 @@ te adoroo, Paloma 🎸❤️
 
 const mensagem = `
 
-Entre bilhões de pessoas no mundo,
-existe alguém que consegue deixar
-tudo um pouco mais bonito só por existir.
+Hoje é o Dia das Mulheres,
+e eu não podia deixar passar
+sem falar de você.
 
-Seu sorriso tem algo diferente...
-algo que faz qualquer momento
-parecer especial.
+Entre tantas pessoas no mundo,
+você tem um jeito único
+que chama atenção sem esforço.
 
-Algumas coisas são inesquecíveis.
+Tem algo na sua forma de ser
+que mistura leveza, força
+e uma simplicidade bonita
+que é difícil de explicar…
+mas fácil de admirar.
 
-Algumas músicas marcam a história.
+Você é o tipo de pessoa
+que torna os dias mais interessantes
+só por existir.
 
-E alguns solos de guitarra
-são simplesmente lendários...
+Seu jeito, suas palavras,
+sua presença…
+tudo em você tem algo especial.
 
-Mas sabe de uma coisa?
+Eu gosto muito de você,
+de verdade.
 
-Nem o solo do Slash
-consegue ser mais lindo
-do que você.
+Não só pelo que você mostra,
+mas pelo que você é.
 
-💐 Feliz Dia das Mulheres 💐
+E é impossível não reconhecer
+o quanto você é especial
+e única.
+
+Então hoje eu só queria te desejar
+um Feliz Dia das Mulheres.
+
+Que você continue sendo
+exatamente essa pessoa maravilhosa,
+cheia de luz e coisas bonitas
+que fazem diferença na vida
+de quem tem a sorte de te conhecer.
+
+🌸 Feliz Dia das Mulheres 🌸
 `
 
 function entrar(){
@@ -289,7 +289,7 @@ function entrar(){
 let user=document.getElementById("user").value
 let pass=document.getElementById("pass").value
 
-if(user=="paloma" && pass=="november rain"){
+if(user=="mo do leo" && pass=="com grandes poderes vem grandes responsabilidades"){
 
 document.getElementById("login").style.display="none"
 document.getElementById("surpresa").style.display="flex"
@@ -298,13 +298,6 @@ let musica=document.getElementById("musica")
 musica.play()
 
 digitarTexto()
-
-setTimeout(()=>{
-
-document.getElementById("final").classList.add("show")
-chuvaDeEstrelas()
-
-},26000)
 
 }else{
 
@@ -329,6 +322,11 @@ i++
 
 setTimeout(escrever,speed)
 
+}else{
+
+document.getElementById("final").classList.add("show")
+chuvaDeEstrelas()
+
 }
 
 }
@@ -339,7 +337,7 @@ escrever()
 
 function coracoes(){
 
-const simbolos=["❤","🌹"]  // coração + rosa
+const simbolos=["❤","🌹"]
 
 setInterval(()=>{
 
