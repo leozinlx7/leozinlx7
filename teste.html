@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Área Secreta</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+
+<style>
+
+body{
+margin:0;
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+font-family:'Playfair Display',serif;
+background: radial-gradient(circle at center,#001f4d,#000814,#000000);
+color:white;
+overflow:hidden;
+}
+
+/* VIA LÁCTEA */
+
+.milkyway{
+position:fixed;
+width:200%;
+height:200%;
+background: radial-gradient(ellipse at center, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0.05) 30%, transparent 60%);
+transform:rotate(-25deg);
+top:-50%;
+left:-50%;
+z-index:0;
+pointer-events:none;
+animation:moveGalaxy 120s linear infinite;
+}
+
+@keyframes moveGalaxy{
+0%{transform:rotate(-25deg) translateX(0)}
+100%{transform:rotate(-25deg) translateX(200px)}
+}
+
+/* ESTRELAS */
+
+.star{
+position:fixed;
+width:2px;
+height:2px;
+background:white;
+border-radius:50%;
+opacity:0.8;
+animation:twinkle 2s infinite alternate;
+z-index:0;
+}
+
+@keyframes twinkle{
+0%{opacity:0.2;transform:scale(1)}
+100%{opacity:1;transform:scale(1.8)}
+}
+
+/* ESTRELA CADENTE */
+
+.shootingStar{
+position:fixed;
+width:200px;
+height:2px;
+background:linear-gradient(90deg,rgba(255,255,255,1),rgba(255,255,255,0));
+border-radius:50%;
+opacity:0;
+z-index:1;
+pointer-events:none;
+}
+
+@keyframes shoot{
+0%{
+transform:translate(-300px,-300px) rotate(45deg);
+opacity:0;
+}
+10%{opacity:1;}
+80%{opacity:1;}
+100%{
+transform:translate(120vw,120vh) rotate(45deg);
+opacity:0;
+}
+}
+
+/* LOGIN */
+
+.login{
+background:#111;
+padding:40px;
+border-radius:15px;
+box-shadow:0 0 20px rgba(0,0,0,0.8);
+text-align:center;
+z-index:3;
+max-width:320px;
+}
+
+input{
+display:block;
+margin:10px auto;
+padding:10px;
+border-radius:8px;
+border:none;
+width:200px;
+background:#2b2b2b;
+color:white;
+}
+
+button{
+padding:10px 25px;
+border:none;
+border-radius:8px;
+background:#555;
+color:white;
+cursor:pointer;
+}
+
+/* CHARADA */
+
+.riddle{
+font-size:14px;
+opacity:0.85;
+margin-top:10px;
+line-height:1.5;
+}
+
+/* SURPRESA */
+
+.surpresa{
+display:none;
+position:absolute;
+width:100%;
+height:100%;
+top:0;
+left:0;
+justify-content:center;
+align-items:center;
+flex-direction:column;
+text-align:center;
+z-index:2;
+}
+
+#texto{
+font-size:28px;
+max-width:750px;
+line-height:1.6;
+padding:20px;
+}
+
+/* FRASE FINAL */
+
+.final{
+font-size:36px;
+margin-top:40px;
+opacity:0;
+transform:scale(0.7);
+transition:all 1.5s;
+padding:20px;
+}
+
+.final.show{
+opacity:1;
+transform:scale(1.1);
+}
+
+/* RESPONSIVO CELULAR */
+
+@media (max-width:600px){
+
+#texto{
+font-size:20px;
+}
+
+.final{
+font-size:24px;
+}
+
+}
+
+/* CORAÇÕES */
+
+.heart{
+position:fixed;
+top:-20px;
+font-size:30px;
+color:rgba(255,0,0,0.5);
+animation:fall linear infinite;
+z-index:1;
+}
+
+@keyframes fall{
+0%{transform:translateY(-20px)}
+100%{transform:translateY(110vh)}
+}
+
+/* PARTÍCULAS */
+
+.particle{
+position:absolute;
+width:3px;
+height:3px;
+background:#4da6ff;
+border-radius:50%;
+opacity:0.8;
+animation:float 10s linear infinite;
+z-index:0;
+}
+
+@keyframes float{
+0%{transform:translateY(100vh)}
+100%{transform:translateY(-10vh)}
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="milkyway"></div>
+
+<div class="login" id="login">
+
+<h2>🔒 Área Secreta</h2>
+
+<input id="user" placeholder="Usuário">
+
+<div class="riddle">
+🎸 Charada:<br>
+Sou uma música do Guns N' Roses.<br>
+Tenho chuva no nome<br>
+e um dos solos de guitarra mais lendários da história.<br>
+Quem sou eu?
+</div>
+
+<input id="pass" type="password" placeholder="Senha">
+
+<button onclick="entrar()">Entrar</button>
+
+</div>
+
+
+<div class="surpresa" id="surpresa">
+
+<div id="texto"></div>
+
+<div class="final" id="final">
+dizem que perfeição não existe...<br><br>
+mas acho que ainda não te conheceram.<br>
+te adoroo, Paloma 🎸❤️
+</div>
+
+<audio id="musica">
+<source src="musica.mp3" type="audio/mpeg">
+</audio>
+
+</div>
+
+<script>
+
+const mensagem = `
+
+Entre bilhões de pessoas no mundo,
+existe alguém que consegue deixar
+tudo um pouco mais bonito só por existir.
+
+Seu sorriso tem algo diferente...
+algo que faz qualquer momento
+parecer especial.
+
+Algumas coisas são inesquecíveis.
+
+Algumas músicas marcam a história.
+
+E alguns solos de guitarra
+são simplesmente lendários...
+
+Mas sabe de uma coisa?
+
+Nem o solo do Slash
+consegue ser mais lindo
+do que você.
+
+💐 Feliz Dia das Mulheres 💐
+`
+
+function entrar(){
+
+let user=document.getElementById("user").value
+let pass=document.getElementById("pass").value
+
+if(user=="paloma" && pass=="november rain"){
+
+document.getElementById("login").style.display="none"
+document.getElementById("surpresa").style.display="flex"
+
+let musica=document.getElementById("musica")
+musica.play()
+
+digitarTexto()
+
+setTimeout(()=>{
+
+document.getElementById("final").classList.add("show")
+chuvaDeEstrelas()
+
+},26000)
+
+}else{
+
+alert("Usuário ou senha incorretos ❤️")
+
+}
+
+}
+
+function digitarTexto(){
+
+let i=0
+let speed=45
+let texto=document.getElementById("texto")
+
+function escrever(){
+
+if(i<mensagem.length){
+
+texto.innerHTML+=mensagem.charAt(i)
+i++
+
+setTimeout(escrever,speed)
+
+}
+
+}
+
+escrever()
+
+}
+
+function coracoes(){
+
+const simbolos=["❤","🌹"]  // coração + rosa
+
+setInterval(()=>{
+
+let heart=document.createElement("div")
+
+heart.classList.add("heart")
+
+heart.innerHTML=simbolos[Math.floor(Math.random()*simbolos.length)]
+
+heart.style.left=Math.random()*100+"vw"
+heart.style.animationDuration=(Math.random()*5+4)+"s"
+
+document.body.appendChild(heart)
+
+setTimeout(()=>{heart.remove()},8000)
+
+},400)
+
+}
+
+coracoes()
+
+function particulas(){
+
+for(let i=0;i<80;i++){
+
+let p=document.createElement("div")
+
+p.classList.add("particle")
+
+p.style.left=Math.random()*100+"vw"
+p.style.animationDuration=(Math.random()*10+5)+"s"
+
+document.body.appendChild(p)
+
+}
+
+}
+
+particulas()
+
+function estrelas(){
+
+for(let i=0;i<150;i++){
+
+let star=document.createElement("div")
+
+star.classList.add("star")
+
+star.style.left=Math.random()*100+"vw"
+star.style.top=Math.random()*100+"vh"
+
+star.style.animationDuration=(Math.random()*3+1)+"s"
+
+document.body.appendChild(star)
+
+}
+
+}
+
+estrelas()
+
+function estrelaCadente(){
+
+setInterval(()=>{
+
+let s=document.createElement("div")
+
+s.classList.add("shootingStar")
+
+s.style.top=Math.random()*40+"vh"
+s.style.left=Math.random()*40+"vw"
+
+s.style.animation="shoot 2s linear"
+
+document.body.appendChild(s)
+
+setTimeout(()=>{s.remove()},2000)
+
+},9000)
+
+}
+
+estrelaCadente()
+
+function chuvaDeEstrelas(){
+
+for(let i=0;i<15;i++){
+
+setTimeout(()=>{
+
+let s=document.createElement("div")
+
+s.classList.add("shootingStar")
+
+s.style.top=Math.random()*30+"vh"
+s.style.left=Math.random()*30+"vw"
+
+s.style.animation="shoot 2s linear"
+
+document.body.appendChild(s)
+
+setTimeout(()=>{s.remove()},2000)
+
+},i*300)
+
+}
+
+}
+
+</script>
+
+</body>
+</html>
